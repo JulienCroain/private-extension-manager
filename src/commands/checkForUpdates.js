@@ -7,5 +7,9 @@ module.exports = function(context, provider) {
 
     context.subscriptions.push(disposable)
     
-    // TODO : if configuration change refresh automatically
+    // if configuration change refresh automatically
+    vscode.workspace.onDidChangeConfiguration(configurationChange => {
+        if (configurationChange.affectsConfiguration('private-extension-manager.path'))
+            provider.refresh()
+    })
 }
