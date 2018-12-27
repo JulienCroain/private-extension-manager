@@ -1,0 +1,98 @@
+{
+	"name": "private-extension-manager",
+	"displayName": "Private extension manager",
+	"description": "Install and keep up to date private VS Code extension",
+	"publisher": "juliencroain",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.30.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"*"
+	],
+	"main": "./src/extension.js",
+	"contributes": {
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "private-extensions",
+					"title": "Private Extensions",
+					"icon": "media/dep.svg"
+				}
+			]
+		},
+		"views": {
+			"private-extensions": [
+				{
+					"id": "privateExtensions",
+					"name": ""
+				}
+			]
+		},
+		"commands": [
+			{
+				"command": "privateExtensionManager.checkForUpdates",
+				"title": "Check for updates"
+			},
+			{
+				"command": "privateExtensionManager.installExtension",
+				"title": "Install"
+			},
+			{
+				"command": "privateExtensionManager.updateExtension",
+				"title": "Update"
+			}
+		],
+		"menus": {
+			"view/title": [
+				{
+					"command": "privateExtensionManager.checkForUpdates",
+					"when": "view == privateExtensions",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "privateExtensionManager.updateExtension",
+					"when": "view == privateExtensions && viewItem == extension-update-available",
+					"group": "inline"
+				},
+				{
+					"command": "privateExtensionManager.installExtension",
+					"when": "view == privateExtensions && viewItem == extension-not-installed",
+					"group": "inline"
+				}
+			]
+		},
+		"configuration": [
+			{
+				"title": "Private Extension Manager",
+				"properties": {
+					"private-extension-manager.path": {
+						"type": "string",
+						"default": "",
+						"description": "All locations of your private VSIX files"
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"postinstall": "node ./node_modules/vscode/bin/install",
+		"test": "node ./node_modules/vscode/bin/test"
+	},
+	"devDependencies": {
+		"typescript": "^3.1.4",
+		"vscode": "^1.1.25",
+		"eslint": "^4.11.0",
+		"@types/node": "^8.10.25",
+		"@types/mocha": "^2.2.42"
+	},
+	"dependencies": {
+		"compare-versions": "^3.4.0",
+		"vsix-info": "0.0.2"
+	}
+}
