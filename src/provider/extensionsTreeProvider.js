@@ -16,8 +16,32 @@ function loadExtensionFile(path) {
         })
 }
 
+function getExtensionFromDirectory(path) {
+    return new Promise((resolve, reject) => {
+        fs.readdir(path, (err, files) => {
+            if (err) {
+                vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
+                reject()
+            }
+
+            resolve(files.filter(file => file.toLowerCase().endsWith('.vsix')))
+        })
+    })
+}
+
+function displayUpdateAvailable(extension) {
+    vscode.window.showInformationMessage(`Version ${extension.version} is available for ${extension.displayName}.`, 'Install')
+        .then(buttonClicked => {
+            if (buttonClicked === 'Install') {
+                vscode.commands.executeCommand("installVSIX.install", {
+                    fsPath: extension.path
+                })
+            }
+        })
+}
+
 class ExtensionProvider {
-    constructor(path) {
+    constructor() {
         this._onDidChangeTreeData = new vscode.EventEmitter()
     }
 
@@ -36,60 +60,57 @@ class ExtensionProvider {
     getChildren() {
         let configuration = vscode.workspace.getConfiguration("private-extension-manager")
 
-        return new Promise(resolve => {
-            fs.readdir(configuration.path, (err, files) => {
-                if (err) {
-                    vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
-                    return resolve([])
-                }
-
-                let itemsPromise = files
-                    .filter(file => file.toLowerCase().endsWith('.vsix'))
-                    .map(file => {
-                        return loadExtensionFile(path.join(configuration.path, file))
-                    })
-
-                Promise.all(itemsPromise)
-                    .then(results => {
-                        return results.filter(result => !!result)
-                    })
-                    .then(extensions => {
-                        console.log(extensions)
-                        return extensions.map(extension => {
-                            return new Extension(
-                                extension.displayName,
-                                extension.publisher,
-                                extension.id,
-                                extension.version,
-                                path,
-                                vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
-                            )
-                        })
-                    }).catch(err => {
-                        console.log(err)
-                    }).then(resolve)
+        return getExtensionFromDirectory(configuration.path)
+            .then(extensionFiles => {
+                return Promise.all(extensionFiles.map(file => {
+                    return loadExtensionFile(path.join(configuration.path, file))
+                }))
             })
-        })
+            .then(extensionInfos => extensionInfos.filter(result => !!result))
+            .then(extensionInfos => {
+                return extensionInfos
+                    .filter(extension => {
+                        var sameExtensions = extensionInfos.filter(ex => ex.id === extension.id)
+                        return sameExtensions.length === 1 ||
+                            sameExtensions.every(ex => compareVersions(extension.version, ex.version) >= 0)
+                    })
+                    
+                    .map(extension => {
+                        let contextValue = 'extension-not-installed'
+                        const installedVersion = vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
+
+                        if (installedVersion) {
+                            if (compareVersions(extension.version, installedVersion.packageJSON.version) > 0) {
+                                displayUpdateAvailable(extension)
+                                contextValue = 'extension-update-available'
+                            } else
+                                contextValue = 'extension-uptodate'
+                        }
+
+                        return new Extension(
+                            extension.displayName,
+                            extension.publisher,
+                            extension.id,
+                            extension.version,
+                            extension.path,
+                            contextValue
+                        )
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
 class Extension extends vscode.TreeItem {
 
-	constructor(label, publisher, id, version, path, installedVersion) {
+	constructor(label, publisher, id, version, path, contextValue) {
         super(label, vscode.TreeItemCollapsibleState.None)
         this.publisher = publisher
         this.id = id
         this.version = version
-
-        if (installedVersion) {
-            if (compareVersions(this.version, installedVersion.packageJSON.version) > 0)
-                this.contextValue = 'extension-update-available'
-            else
-                this.contextValue = 'extension-uptodate'
-        } else {
-            this.contextValue = 'extension-not-installed'
-        }
-
+        this.contextValue = contextValue
         this.path = path
 	}
 

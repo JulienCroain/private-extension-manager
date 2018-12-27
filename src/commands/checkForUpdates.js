@@ -1,6 +1,6 @@
 const vscode = require('vscode');
 
-module.exports = function(context, provider) {
+module.exports = function({context, provider}) {
     let disposable = vscode.commands.registerCommand('privateExtensionManager.checkForUpdates', function () {
         provider.refresh()
 	})

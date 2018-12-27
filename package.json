@@ -40,10 +40,6 @@
 			{
 				"command": "privateExtensionManager.installExtension",
 				"title": "Install"
-			},
-			{
-				"command": "privateExtensionManager.updateExtension",
-				"title": "Update"
 			}
 		],
 		"menus": {
@@ -56,7 +52,7 @@
 			],
 			"view/item/context": [
 				{
-					"command": "privateExtensionManager.updateExtension",
+					"command": "privateExtensionManager.installExtension",
 					"when": "view == privateExtensions && viewItem == extension-update-available",
 					"group": "inline"
 				},
@@ -93,6 +89,9 @@
 	},
 	"dependencies": {
 		"compare-versions": "^3.4.0",
-		"vsix-info": "0.0.2"
-	}
+		"vsix-info": "0.0.3"
+	},
+	"extensionDependencies": [
+		"fabiospampinato.vscode-install-vsix"
+	]
 }
