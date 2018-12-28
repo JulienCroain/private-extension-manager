@@ -20,7 +20,7 @@
 				{
 					"id": "private-extensions",
 					"title": "Private Extensions",
-					"icon": "media/dep.svg"
+					"icon": "media/privateExtensionIcon.svg"
 				}
 			]
 		},
@@ -40,9 +40,23 @@
 			{
 				"command": "privateExtensionManager.installExtension",
 				"title": "Install"
+			},
+			{
+				"command": "privateExtensionManager.updateExtension",
+				"title": "Update"
 			}
 		],
 		"menus": {
+			"commandPalette": [
+				{
+				  "command": "privateExtensionManager.installExtension",
+				  "when": "false"
+				},
+				{
+					"command": "privateExtensionManager.updateExtension",
+					"when": "false"
+				  }
+			],
 			"view/title": [
 				{
 					"command": "privateExtensionManager.checkForUpdates",
@@ -52,7 +66,7 @@
 			],
 			"view/item/context": [
 				{
-					"command": "privateExtensionManager.installExtension",
+					"command": "privateExtensionManager.updateExtension",
 					"when": "view == privateExtensions && viewItem == extension-update-available",
 					"group": "inline"
 				},
@@ -70,7 +84,7 @@
 					"private-extension-manager.path": {
 						"type": "string",
 						"default": "",
-						"description": "All locations of your private VSIX files"
+						"description": "The directory where your private VSIX files are released."
 					}
 				}
 			}

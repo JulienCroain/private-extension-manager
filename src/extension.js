@@ -1,5 +1,5 @@
 const checkForUpdatesCommand = require('./commands/checkForUpdates')
-const installExtensionCommand = require('./commands/installExtension')
+const installExtensionCommand = require('./commands/installUpdateExtension')
 const registerProvider = require('./provider/extensionsTreeProvider')
 
 function activate(context) {

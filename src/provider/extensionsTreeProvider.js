@@ -88,11 +88,7 @@ class ExtensionProvider {
                         }
 
                         return new Extension(
-                            extension.displayName,
-                            extension.publisher,
-                            extension.id,
-                            extension.version,
-                            extension.path,
+                            extension,
                             contextValue
                         )
                     })
@@ -105,13 +101,22 @@ class ExtensionProvider {
 
 class Extension extends vscode.TreeItem {
 
-	constructor(label, publisher, id, version, path, contextValue) {
-        super(label, vscode.TreeItemCollapsibleState.None)
-        this.publisher = publisher
-        this.id = id
-        this.version = version
+	constructor(extension, contextValue) {
+        super(extension.displayName, vscode.TreeItemCollapsibleState.None)
+        this.publisher = extension.publisher
+        this.id = extension.id
+        this.version = extension.version
+        this.path = extension.path
         this.contextValue = contextValue
-        this.path = path
+
+        if (contextValue !== 'extension-uptodate') {
+            const image = contextValue === 'extension-not-installed' ? 'install.svg' : 'update.svg'
+
+            this.iconPath = {
+                light: path.join(__dirname, '..','..', 'media', 'light', image),
+                dark: path.join(__dirname, '..','..', 'media', 'dark', image)
+            }
+        }
 	}
 
 	get tooltip() {
@@ -124,7 +129,7 @@ class Extension extends vscode.TreeItem {
 }
 
 module.exports = function() {
-    const extensionProvider = new ExtensionProvider(vscode.workspace.rootPath)
+    const extensionProvider = new ExtensionProvider()
     vscode.window.registerTreeDataProvider('privateExtensions', extensionProvider)
     return extensionProvider
 }
