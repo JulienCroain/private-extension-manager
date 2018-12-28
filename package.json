@@ -3,7 +3,7 @@
 	"displayName": "Private extension manager",
 	"description": "Install and keep up to date private VS Code extension",
 	"publisher": "juliencroain",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
@@ -49,13 +49,13 @@
 		"menus": {
 			"commandPalette": [
 				{
-				  "command": "privateExtensionManager.installExtension",
-				  "when": "false"
+					"command": "privateExtensionManager.installExtension",
+					"when": "false"
 				},
 				{
 					"command": "privateExtensionManager.updateExtension",
 					"when": "false"
-				  }
+				}
 			],
 			"view/title": [
 				{
