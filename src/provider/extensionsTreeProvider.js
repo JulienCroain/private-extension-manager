@@ -70,7 +70,8 @@ class ExtensionProvider {
             .then(extensionInfos => {
                 return extensionInfos
                     .filter(extension => {
-                        var sameExtensions = extensionInfos.filter(ex => ex.id === extension.id)
+                        var sameExtensions = extensionInfos
+                            .filter(ex => `${ex.publisher}.${ex.id}` === `${extension.publisher}.${extension.id}`)
                         return sameExtensions.length === 1 ||
                             sameExtensions.every(ex => compareVersions(extension.version, ex.version) >= 0)
                     })
