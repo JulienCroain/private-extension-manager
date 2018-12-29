@@ -94,6 +94,7 @@
 		"postinstall": "node ./node_modules/vscode/bin/install",
 		"test": "node ./node_modules/vscode/bin/test"
 	},
+	"repository": "https://github.com/JulienCroain/private-extension-manager",
 	"devDependencies": {
 		"typescript": "^3.1.4",
 		"vscode": "^1.1.25",

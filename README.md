@@ -1,4 +1,8 @@
-# private-extension-manager README
+# private-extension-manager
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/JulienCroain/private-extension-manager/master/media/privateExtensionIcon.png" alt="Logo">
+</p>
 
 This extension add an activity bar to manage extension which are not on the official store but on a local directory.
 
