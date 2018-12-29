@@ -3,6 +3,7 @@
 	"displayName": "Private extension manager",
 	"description": "Install and keep up to date private VS Code extension",
 	"publisher": "juliencroain",
+	"icon": "media/privateExtensionIcon.png",
 	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.30.0"
@@ -91,8 +92,7 @@
 		]
 	},
 	"scripts": {
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"test": "node ./node_modules/vscode/bin/test"
+		"postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"repository": "https://github.com/JulienCroain/private-extension-manager",
 	"devDependencies": {
