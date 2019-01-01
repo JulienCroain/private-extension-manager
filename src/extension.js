@@ -1,8 +1,29 @@
+const vscode = require('vscode')
+const extensionStore = require('./extensionStore')
 const checkForUpdatesCommand = require('./commands/checkForUpdates')
 const installExtensionCommand = require('./commands/installUpdateExtension')
 const registerProvider = require('./provider/extensionsTreeProvider')
 
+function displayUpdateAvailable(extension) {
+    vscode.window.showInformationMessage(`Version ${extension.version} is available for ${extension.displayName}.`, 'Install')
+        .then(buttonClicked => {
+            if (buttonClicked === 'Install') {
+                vscode.commands.executeCommand("installVSIX.install", {
+                    fsPath: extension.path
+                })
+            }
+        })
+}
+
 function activate(context) {
+	extensionStore.refresh().then(extensions => {
+		extensions.forEach(extension => {
+			if (extension.contextValue === 'extension-update-available') {
+				displayUpdateAvailable(extension)
+			}
+		})
+	})
+
 	var provider = registerProvider()
 	var commandRegistrationParams = {context, provider}
 

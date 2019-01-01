@@ -1,7 +1,9 @@
 # Change Log
-All notable changes to the "private-extension-manager" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 1.0.1 - 2019-01-01
 
-## [Unreleased]
+### Fixed
+Fix pop-up display at startup instead of when user opens the associated activity bar.
+
+## 1.0.0 - 2018-12-28
 - Initial release
