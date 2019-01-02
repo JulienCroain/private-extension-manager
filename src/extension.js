@@ -2,6 +2,7 @@ const vscode = require('vscode')
 const extensionStore = require('./extensionStore')
 const checkForUpdatesCommand = require('./commands/checkForUpdates')
 const installExtensionCommand = require('./commands/installUpdateExtension')
+const showReadmeCommand = require('./commands/showReadme')
 const registerProvider = require('./provider/extensionsTreeProvider')
 
 function displayUpdateAvailable(extension) {
@@ -29,6 +30,7 @@ function activate(context) {
 
 	checkForUpdatesCommand(commandRegistrationParams)
 	installExtensionCommand(commandRegistrationParams)
+	showReadmeCommand(commandRegistrationParams)
 }
 exports.activate = activate;
 

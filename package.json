@@ -4,7 +4,7 @@
 	"description": "Install and keep up to date private VS Code extension",
 	"publisher": "juliencroain",
 	"icon": "media/privateExtensionIcon.png",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
@@ -45,6 +45,10 @@
 			{
 				"command": "privateExtensionManager.updateExtension",
 				"title": "Update"
+			},
+			{
+				"command": "privateExtensionManager.showReadme",
+				"title": "Show README"
 			}
 		],
 		"menus": {
@@ -55,6 +59,10 @@
 				},
 				{
 					"command": "privateExtensionManager.updateExtension",
+					"when": "false"
+				},
+				{
+					"command": "privateExtensionManager.showReadme",
 					"when": "false"
 				}
 			],
@@ -107,6 +115,7 @@
 		"vsix-info": "0.0.3"
 	},
 	"extensionDependencies": [
-		"fabiospampinato.vscode-install-vsix"
+		"fabiospampinato.vscode-install-vsix",
+		"juliencroain.markdown-viewer"
 	]
 }

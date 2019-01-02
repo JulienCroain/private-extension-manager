@@ -12,6 +12,7 @@ class ExtensionProvider {
     }
 
     refresh() {
+        extensionStore.refresh()
         this._onDidChangeTreeData.fire()
     }
 
@@ -35,6 +36,11 @@ class Extension extends vscode.TreeItem {
         this.version = extension.version
         this.path = extension.path
         this.contextValue = extension.contextValue
+        this.command = {
+            command: 'privateExtensionManager.showReadme',
+            title: '',
+            arguments: [extension]
+        }
 
         if (extension.contextValue !== 'extension-uptodate') {
             const image = extension.contextValue === 'extension-not-installed' ? 'install.svg' : 'update.svg'
