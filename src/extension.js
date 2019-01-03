@@ -17,9 +17,16 @@ function displayUpdateAvailable(extension) {
 }
 
 function activate(context) {
+	let configuration = vscode.workspace.getConfiguration("private-extension-manager")
+
 	extensionStore.refresh().then(extensions => {
 		extensions.forEach(extension => {
-			if (extension.contextValue === 'extension-update-available') {
+			if (extension.contextValue !== 'extension-update-available')
+				return
+			
+			if (configuration.autoUpdate) {
+				vscode.commands.executeCommand('privateExtensionManager.updateExtension', extension)
+			} else {
 				displayUpdateAvailable(extension)
 			}
 		})

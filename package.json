@@ -4,7 +4,7 @@
 	"description": "Install and keep up to date private VS Code extension",
 	"publisher": "juliencroain",
 	"icon": "media/privateExtensionIcon.png",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"engines": {
 		"vscode": "^1.30.0"
 	},
@@ -94,6 +94,11 @@
 						"type": "string",
 						"default": "",
 						"description": "The directory where your private VSIX files are released."
+					},
+					"private-extension-manager.autoUpdate": {
+						"type": "boolean",
+						"default": false,
+						"description": "Auto-update private extension."
 					}
 				}
 			}
