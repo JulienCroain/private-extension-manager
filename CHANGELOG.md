@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.1 - 2019-01-03
+
+### Fixed
+Fix update of file with a space inside the path when user click on information message.
+
 ## 1.2.0 - 2019-01-03
 ### Added
 Add functionality to auto update private extension. See configuration "autoUpdate".

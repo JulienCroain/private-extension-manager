@@ -9,9 +9,7 @@ function displayUpdateAvailable(extension) {
     vscode.window.showInformationMessage(`Version ${extension.version} is available for ${extension.displayName}.`, 'Install')
         .then(buttonClicked => {
             if (buttonClicked === 'Install') {
-                vscode.commands.executeCommand("installVSIX.install", {
-                    fsPath: extension.path
-                })
+                vscode.commands.executeCommand('privateExtensionManager.updateExtension', extension)
             }
         })
 }
