@@ -2,7 +2,7 @@ const vscode = require('vscode')
 
 function installExtension(extension) {
     vscode.commands.executeCommand("installVSIX.install", {
-        fsPath: extension.path
+        fsPath: `"${extension.path}"`
     })
 }
 

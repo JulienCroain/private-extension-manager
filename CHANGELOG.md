@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.2.0 - 2019-01-03
+### Added
+Add functionality to auto update private extension. See configuration "autoUpdate".
+
+### Fixed
+Fix installation of file with a space inside the path.
+
 ## 1.1.0 - 2019-01-03
 
 ### Added
