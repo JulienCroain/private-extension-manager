@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.2.2 - 2019-01-17
+
+### Fixed
+Fix update and install of extension following an update of VSIX Installer.
+
 ## 1.2.1 - 2019-01-03
 
 ### Fixed
