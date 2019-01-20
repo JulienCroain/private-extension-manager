@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.0 - 2019-01-21
+
+### Added
+Added the functionality to install a previous version of an extension.
+
 ## 1.2.2 - 2019-01-17
 
 ### Fixed

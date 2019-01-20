@@ -34,6 +34,7 @@ class Extension extends vscode.TreeItem {
         this.publisher = extension.publisher
         this.id = extension.id
         this.version = extension.version
+        this.versions = extension.versions
         this.path = extension.path
         this.contextValue = extension.contextValue
         this.command = {

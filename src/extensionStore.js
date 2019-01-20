@@ -29,6 +29,33 @@ function loadExtensionFile(path) {
         })
 }
 
+function getExtensionIdentifier(extension) {
+    return `${extension.publisher}.${extension.id}`
+}
+
+function distinctExtensionsWithAllVersions(extensions) {
+    var distinctExtensions = {}
+
+    extensions.forEach(extension => {
+        if (distinctExtensions[getExtensionIdentifier(extension)])
+            return
+        
+        extension.versions = extensions
+            .filter(ex => getExtensionIdentifier(ex) === getExtensionIdentifier(extension))
+            .sort((a, b) => compareVersions(a.version, b.version) * -1)
+            .map(ext => ({
+                version: ext.version,
+                path: ext.path
+            }))
+        extension.version = extension.versions[0].version
+        extension.path = extension.versions[0].path
+
+        distinctExtensions[getExtensionIdentifier(extension)] = extension
+    })
+
+    return Object.values(distinctExtensions)
+}
+
 class ExtensionStore {
     contructor() {
         this._refreshPromise = Promise.resolve([])
@@ -44,27 +71,19 @@ class ExtensionStore {
             }))
         })
         .then(extensionInfos => extensionInfos.filter(result => !!result))
-        .then(extensionInfos => {
-            return extensionInfos
-                .filter(extension => {
-                    var sameExtensions = extensionInfos
-                        .filter(ex => `${ex.publisher}.${ex.id}` === `${extension.publisher}.${extension.id}`)
-                    return sameExtensions.length === 1 ||
-                        sameExtensions.every(ex => compareVersions(extension.version, ex.version) >= 0)
-                })
-                
-                .map(extension => {
-                    extension.contextValue = 'extension-not-installed'
-                    const installedVersion = vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
+        .then(extensions => {
+            return distinctExtensionsWithAllVersions(extensions).map(extension => {
+                extension.contextValue = 'extension-not-installed'
+                const installedVersion = vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
 
-                    if (installedVersion) {
-                        if (compareVersions(extension.version, installedVersion.packageJSON.version) > 0)
-                            extension.contextValue = 'extension-update-available'
-                        else
-                            extension.contextValue = 'extension-uptodate'
-                    }
-                    return extension
-                })
+                if (installedVersion) {
+                    if (compareVersions(extension.version, installedVersion.packageJSON.version) > 0)
+                        extension.contextValue = 'extension-update-available'
+                    else
+                        extension.contextValue = 'extension-uptodate'
+                }
+                return extension
+            })
         })
         .catch(err => {
             console.log(err)

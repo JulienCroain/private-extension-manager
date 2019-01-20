@@ -2,6 +2,7 @@ const vscode = require('vscode')
 const extensionStore = require('./extensionStore')
 const checkForUpdatesCommand = require('./commands/checkForUpdates')
 const installExtensionCommand = require('./commands/installUpdateExtension')
+const installAnotherVersionCommand = require('./commands/installAnotherVersion')
 const showReadmeCommand = require('./commands/showReadme')
 const registerProvider = require('./provider/extensionsTreeProvider')
 
@@ -35,6 +36,7 @@ function activate(context) {
 
 	checkForUpdatesCommand(commandRegistrationParams)
 	installExtensionCommand(commandRegistrationParams)
+	installAnotherVersionCommand(commandRegistrationParams)
 	showReadmeCommand(commandRegistrationParams)
 }
 exports.activate = activate;
