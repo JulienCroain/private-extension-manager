@@ -36,6 +36,7 @@ class DirectoryExtension extends vscode.TreeItem {
 	constructor(directory) {
         super(directory.name, vscode.TreeItemCollapsibleState.Collapsed)
         this.path = directory.path
+        this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded
 	}
 
 	get tooltip() {
