@@ -1,18 +1,17 @@
 const vscode = require('vscode')
 const path = require('path')
-const fs = require('fs')
 const compareVersions = require('compare-versions')
 const VsixInfo = require('vsix-info').default
 
-function getExtensionFromDirectory(path) {
+function getExtensionFromDirectory(direcoryInfo) {
     return new Promise((resolve, reject) => {
-        fs.readdir(path, (err, files) => {
-            if (err) {
-                vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
-                reject()
-            }
-
-            resolve(files.filter(file => file.toLowerCase().endsWith('.vsix')))
+        vscode.workspace.fs.readDirectory(vscode.Uri.file(direcoryInfo.path)).then((files) => {
+            files = files.filter(file => file[0].toLowerCase().endsWith('.vsix') &&
+                (file[1] == vscode.FileType.File || file[1] == vscode.FileType.SymbolicLink))
+            resolve(files.map(f => f[0]))
+        }, (reason) => {
+            vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
+            reject()
         })
     })
 }
@@ -30,7 +29,7 @@ function loadExtensionFile(path) {
 }
 
 function getExtensionIdentifier(extension) {
-    return `${extension.publisher}.${extension.id}`
+    return `${extension.publisher}.${extension.name}`
 }
 
 function distinctExtensionsWithAllVersions(extensions) {
@@ -56,40 +55,58 @@ function distinctExtensionsWithAllVersions(extensions) {
     return Object.values(distinctExtensions)
 }
 
+function filterAndFormatExtensionInfos(extensionInfos) {
+    return distinctExtensionsWithAllVersions(extensionInfos.filter(info => !!info))
+        .map(extension => {
+            extension.contextValue = 'extension-not-installed'
+            const installedVersion = vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
+
+            if (installedVersion) {
+                if (compareVersions(extension.version, installedVersion.packageJSON.version) > 0)
+                    extension.contextValue = 'extension-update-available'
+                else
+                    extension.contextValue = 'extension-uptodate'
+            }
+            return extension
+        })
+}
+
 class ExtensionStore {
     contructor() {
         this._refreshPromise = Promise.resolve([])
     }
 
-    refresh() {
+    get directories() {
         let configuration = vscode.workspace.getConfiguration("private-extension-manager")
 
-        this._refreshPromise = getExtensionFromDirectory(configuration.path)
+        return configuration.directories.map(d => {
+            return {
+                name: path.parse(d).name,
+                path: d
+            }
+        })
+    }
+
+    extensionInDirectory(directory) {
+        return getExtensionFromDirectory(directory)
         .then(extensionFiles => {
             return Promise.all(extensionFiles.map(file => {
-                return loadExtensionFile(path.join(configuration.path, file))
+                return loadExtensionFile(path.join(directory.path, file))
             }))
         })
-        .then(extensionInfos => extensionInfos.filter(result => !!result))
-        .then(extensions => {
-            return distinctExtensionsWithAllVersions(extensions).map(extension => {
-                extension.contextValue = 'extension-not-installed'
-                const installedVersion = vscode.extensions.getExtension(`${extension.publisher}.${extension.id}`)
-
-                if (installedVersion) {
-                    if (compareVersions(extension.version, installedVersion.packageJSON.version) > 0)
-                        extension.contextValue = 'extension-update-available'
-                    else
-                        extension.contextValue = 'extension-uptodate'
-                }
-                return extension
-            })
-        })
+        .then(filterAndFormatExtensionInfos)
         .catch(err => {
             console.log(err)
         })
+    }
 
-        return this._refreshPromise
+    refresh() {
+        return Promise.all(this.directories.map(directory => this.extensionInDirectory(directory)))
+            .then(extensionInfos => extensionInfos.reduce((acc, val) => acc.concat(val), []))
+            .then(filterAndFormatExtensionInfos)
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     get allExtensions() {

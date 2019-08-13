@@ -20,11 +20,31 @@ class ExtensionProvider {
         return element
     }
 
-    getChildren() {
-        return extensionStore.allExtensions.then(extensions => {
-            return extensions.map(extension => new Extension(extension))
-        })
+    getChildren(element) {
+        if (element) {
+            return extensionStore.extensionInDirectory(element).then(extensions => {
+                return extensions.map(extension => new Extension(extension))
+            })
+        }
+        
+        return extensionStore.directories.map(directory => new DirectoryExtension(directory))
     }
+}
+
+class DirectoryExtension extends vscode.TreeItem {
+
+	constructor(directory) {
+        super(directory.name, vscode.TreeItemCollapsibleState.Collapsed)
+        this.path = directory.path
+	}
+
+	get tooltip() {
+		return this.path
+	}
+
+	get description() {
+		return this.path
+	}
 }
 
 class Extension extends vscode.TreeItem {
@@ -32,10 +52,11 @@ class Extension extends vscode.TreeItem {
 	constructor(extension) {
         super(extension.displayName, vscode.TreeItemCollapsibleState.None)
         this.publisher = extension.publisher
-        this.id = extension.id
+        this.id = extension.path
+        this.name = extension.id
+        this.path = extension.path
         this.version = extension.version
         this.versions = extension.versions
-        this.path = extension.path
         this.contextValue = extension.contextValue
         this.command = {
             command: 'privateExtensionManager.showReadme',
@@ -54,7 +75,7 @@ class Extension extends vscode.TreeItem {
 	}
 
 	get tooltip() {
-		return `${this.publisher}.${this.id}-${this.version}`
+		return `${this.publisher}.${this.name}-${this.version}`
 	}
 
 	get description() {
