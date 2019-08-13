@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.4.0 - 2019-08-13
+
+### Added
+Added the functionality to install a previous version of an extension.
+
+### Updated
+Updated icon and replace fs API by vscode.workspace.fs
+
 ## 1.3.0 - 2019-01-21
 
 ### Added
