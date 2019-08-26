@@ -6,5 +6,4 @@ vsc-extension-quickstart.md
 **/jsconfig.json
 **/*.map
 **/.eslintrc.json
-node_modules/**
 media/update.gif
