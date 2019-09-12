@@ -29,7 +29,7 @@ function loadExtensionFile(path) {
 }
 
 function getExtensionIdentifier(extension) {
-    return `${extension.publisher}.${extension.name}`
+    return `${extension.publisher}.${extension.id}`
 }
 
 function distinctExtensionsWithAllVersions(extensions) {
