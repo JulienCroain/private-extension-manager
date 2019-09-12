@@ -1,4 +1,5 @@
 # private-extension-manager
+
 [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/juliencroain.private-extension-manager.svg)](https://marketplace.visualstudio.com/items?itemName=juliencroain.private-extension-manager)
 
 <p align="center">
@@ -23,15 +24,15 @@ This extension needs "fabiospampinato.vscode-install-vsix" to start installing e
 
 This extension contributes the following settings:
 
-* `private-extension-manager.path`: the directory where your private VSIX files are released
-* `private-extension-manager.autoUpdate`: set to true if you want to automatically install newer version of your extensions
+- `private-extension-manager.directories`: list of directories where your private VSIX files are released
+- `private-extension-manager.autoUpdate`: set to true if you want to automatically install newer version of your extensions
 
 ## Release Notes
 
 ### 1.0.0
 
 First version of the extension.
-You can install or update extension from a local folder.
+You can install or update extension from local folders.
 At start up, if the extension detect an update a message is displayed to ask you if you want install it.
 
 **Enjoy!**

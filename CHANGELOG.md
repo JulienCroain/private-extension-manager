@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.4 - 2019-09-12
+
+### Changed
+
+Fix [Issue #1](https://github.com/JulienCroain/private-extension-manager/issues/1) : Merges extensions if they have same publisher.
+
 ## 1.4.0 - 2019-08-13
 
 ### Added
