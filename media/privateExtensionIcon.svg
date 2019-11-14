@@ -1,1 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M144,16l16,-16l80,0l16,16l0,80l-16,16l-80,0l-16,-16l0,-80Zm16,0l0,80l80,0l0,-80l-80,0Zm-160,144l0,-96l16,-16l80,0l16,16l0,80l80,0l16,16l0,80l-16,16l-80,0l-16,0l-80,0l-16,-16l0,-80Zm96,-16l0,-80l-80,0l0,80l80,0Zm0,16l-80,0l0,80l80,0l0,-80Zm16,80l80,0l0,-80l-80,0l0,80Z" style="fill:#fff;"/><path d="M209,47l0,6l-18,0l0,-6c0,-4.971 4.029,-9 9,-9c4.971,0 9,4.029 9,9Zm-21,6l0,-6c0,-6.627 5.373,-12 12,-12c6.627,0 12,5.373 12,12l0,6l3,0l3,3l0,18l-3,3l-30,0l-3,-3l0,-18l3,-3l3,0Zm-3,21l0,-18l30,0l0,18l-30,0Z" style="fill:#fff;"/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <path d="M0,15L0,6L1.5,4.5L9,4.5L10.75,6L10.75,13.25L18,13.25L19.5,15L19.5,22.5L18,24L10.5,24L9,24L1.5,24L0,22.5L0,15ZM8.75,13.25L8.75,6.5L2,6.5L2,13.25L8.75,13.25ZM8.75,15L2,15L2,22L8.75,22L8.75,15ZM10.75,22L17.5,22L17.5,15L10.75,15L10.75,22Z" style="fill:white;"/>
+    <g id="lock" transform="matrix(0.766652,0,0,0.766652,18.8468,5.37376)">
+        <g transform="matrix(1,0,0,1,-8,-8)">
+            <path d="M13,7L12,7L12,5C12,3.939 11.579,2.922 10.828,2.172C10.078,1.421 9.061,1 8,1C6.939,1 5.922,1.421 5.172,2.172C4.421,2.922 4,3.939 4,5L4,7L3,7L2,8L2,14L3,15L13,15L14,14L14,8L13,7ZM5.325,5C5.325,4.204 5.316,3.685 5.879,3.123C6.441,2.56 7.204,2.244 8,2.244C8.796,2.244 9.559,2.56 10.121,3.123C10.684,3.685 10.695,4.204 10.695,5L10.695,7L5.325,7L5.325,5ZM12.6,13.6L3.4,13.6L3.42,8.3L12.62,8.3L12.6,13.6Z" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>

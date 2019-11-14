@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.4.5 - 2019-11-13
+
+### Changed
+
+Extension icon
+
+### Added
+
+MIT licence file
+
 ## 1.4.4 - 2019-09-12
 
 ### Changed
