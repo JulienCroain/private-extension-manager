@@ -1,145 +1,146 @@
 {
-	"name": "private-extension-manager",
-	"displayName": "Private extension manager",
-	"description": "Install and keep up to date private VS Code extension",
-	"publisher": "juliencroain",
-	"icon": "media/privateExtensionIcon.png",
-	"version": "1.4.4",
-	"engines": {
-		"vscode": "^1.37.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*"
-	],
-	"main": "./src/extension.js",
-	"contributes": {
-		"viewsContainers": {
-			"activitybar": [
-				{
-					"id": "private-extensions",
-					"title": "Private Extensions",
-					"icon": "media/privateExtensionIcon.svg"
-				}
-			]
-		},
-		"views": {
-			"private-extensions": [
-				{
-					"id": "privateExtensions",
-					"name": ""
-				}
-			]
-		},
-		"commands": [
-			{
-				"command": "privateExtensionManager.checkForUpdates",
-				"title": "Check for updates"
-			},
-			{
-				"command": "privateExtensionManager.installExtension",
-				"title": "Install"
-			},
-			{
-				"command": "privateExtensionManager.updateExtension",
-				"title": "Update"
-			},
-			{
-				"command": "privateExtensionManager.showReadme",
-				"title": "Show README"
-			},
-			{
-				"command": "privateExtensionManager.installAnotherVersion",
-				"title": "Install Another Version"
-			}
-		],
-		"menus": {
-			"commandPalette": [
-				{
-					"command": "privateExtensionManager.installExtension",
-					"when": "false"
-				},
-				{
-					"command": "privateExtensionManager.updateExtension",
-					"when": "false"
-				},
-				{
-					"command": "privateExtensionManager.showReadme",
-					"when": "false"
-				},
-				{
-					"command": "privateExtensionManager.installAnotherVersion",
-					"when": "false"
-				}
-			],
-			"view/title": [
-				{
-					"command": "privateExtensionManager.checkForUpdates",
-					"when": "view == privateExtensions",
-					"group": "navigation"
-				}
-			],
-			"view/item/context": [
-				{
-					"command": "privateExtensionManager.updateExtension",
-					"when": "view == privateExtensions && viewItem == extension-update-available",
-					"group": "inline"
-				},
-				{
-					"command": "privateExtensionManager.installExtension",
-					"when": "view == privateExtensions && viewItem == extension-not-installed",
-					"group": "inline"
-				},
-				{
-					"command": "privateExtensionManager.installAnotherVersion"
-				}
-			]
-		},
-		"configuration": [
-			{
-				"title": "Private Extension Manager",
-				"properties": {
-					"private-extension-manager.path": {
-						"type": "string",
-						"default": "",
-						"description": "Obselete, use 'directories' property instead."
-					},
-					"private-extension-manager.directories": {
-						"type": "array",
-						"default": [],
-						"items": {
-							"type": "string"
-						},
-						"description": "Directories where your private VSIX files are released."
-					},
-					"private-extension-manager.autoUpdate": {
-						"type": "boolean",
-						"default": false,
-						"description": "Auto-update private extension."
-					}
-				}
-			}
-		]
-	},
-	"scripts": {
-		"postinstall": "node ./node_modules/vscode/bin/install"
-	},
-	"repository": "https://github.com/JulienCroain/private-extension-manager",
-	"devDependencies": {
-		"@types/mocha": "^2.2.42",
-		"@types/node": "^8.10.51",
-		"eslint": "^6.1.0",
-		"typescript": "^3.5.3",
-		"vscode": "^1.1.36"
-	},
-	"dependencies": {
-		"compare-versions": "^3.5.1",
-		"vsix-info": "0.0.3"
-	},
-	"extensionDependencies": [
-		"fabiospampinato.vscode-install-vsix",
-		"juliencroain.markdown-viewer"
-	]
+  "name": "private-extension-manager",
+  "displayName": "Private extension manager",
+  "description": "Install and keep up to date private VS Code extension",
+  "publisher": "juliencroain",
+  "icon": "media/privateExtensionIcon.png",
+  "version": "1.4.4",
+  "engines": {
+    "vscode": "^1.37.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "private-extensions",
+          "title": "Private Extensions",
+          "icon": "media/privateExtensionIcon.svg"
+        }
+      ]
+    },
+    "views": {
+      "private-extensions": [
+        {
+          "id": "privateExtensions",
+          "name": ""
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "privateExtensionManager.checkForUpdates",
+        "title": "Check for updates"
+      },
+      {
+        "command": "privateExtensionManager.installExtension",
+        "title": "Install"
+      },
+      {
+        "command": "privateExtensionManager.updateExtension",
+        "title": "Update"
+      },
+      {
+        "command": "privateExtensionManager.showReadme",
+        "title": "Show README"
+      },
+      {
+        "command": "privateExtensionManager.installAnotherVersion",
+        "title": "Install Another Version"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "privateExtensionManager.installExtension",
+          "when": "false"
+        },
+        {
+          "command": "privateExtensionManager.updateExtension",
+          "when": "false"
+        },
+        {
+          "command": "privateExtensionManager.showReadme",
+          "when": "false"
+        },
+        {
+          "command": "privateExtensionManager.installAnotherVersion",
+          "when": "false"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "privateExtensionManager.checkForUpdates",
+          "when": "view == privateExtensions",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "privateExtensionManager.updateExtension",
+          "when": "view == privateExtensions && viewItem == extension-update-available",
+          "group": "inline"
+        },
+        {
+          "command": "privateExtensionManager.installExtension",
+          "when": "view == privateExtensions && viewItem == extension-not-installed",
+          "group": "inline"
+        },
+        {
+          "command": "privateExtensionManager.installAnotherVersion"
+        }
+      ]
+    },
+    "configuration": [
+      {
+        "title": "Private Extension Manager",
+        "properties": {
+          "private-extension-manager.path": {
+            "type": "string",
+            "default": "",
+            "description": "Obselete, use 'directories' property instead."
+          },
+          "private-extension-manager.directories": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "description": "Directories where your private VSIX files are released."
+          },
+          "private-extension-manager.autoUpdate": {
+            "type": "boolean",
+            "default": false,
+            "description": "Auto-update private extension."
+          }
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "repository": "https://github.com/JulienCroain/private-extension-manager",
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^8.10.51",
+    "eslint": "^6.1.0",
+    "typescript": "^3.5.3",
+    "vscode": "^1.1.36"
+  },
+  "dependencies": {
+    "compare-versions": "^3.5.1",
+    "vsix-info": "0.0.3"
+  },
+  "extensionDependencies": [
+    "fabiospampinato.vscode-install-vsix",
+    "juliencroain.markdown-viewer"
+  ],
+  "license": "MIT"
 }
