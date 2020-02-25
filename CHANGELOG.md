@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.6 - 2020-02-25
+
+### Fixed
+
+Show the latest Readme of an extension.
+
 ## 1.4.5 - 2019-11-13
 
 ### Changed

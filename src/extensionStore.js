@@ -44,10 +44,12 @@ function distinctExtensionsWithAllVersions(extensions) {
             .sort((a, b) => compareVersions(a.version, b.version) * -1)
             .map(ext => ({
                 version: ext.version,
-                path: ext.path
+                path: ext.path,
+                readme: ext.readme
             }))
         extension.version = extension.versions[0].version
         extension.path = extension.versions[0].path
+        extension.readme = extension.versions[0].readme
 
         distinctExtensions[getExtensionIdentifier(extension)] = extension
     })
