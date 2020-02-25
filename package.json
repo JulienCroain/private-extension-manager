@@ -139,7 +139,6 @@
     "vsix-info": "0.0.3"
   },
   "extensionDependencies": [
-    "fabiospampinato.vscode-install-vsix",
     "juliencroain.markdown-viewer"
   ],
   "license": "MIT"

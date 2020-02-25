@@ -16,10 +16,6 @@ You can install or update each extension.
 
 ![Update private extension](/media/update.gif)
 
-## Requirements
-
-This extension needs "fabiospampinato.vscode-install-vsix" to start installing extensions.
-
 ## Extension Settings
 
 This extension contributes the following settings:
