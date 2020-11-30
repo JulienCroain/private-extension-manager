@@ -93,7 +93,8 @@
           "group": "inline"
         },
         {
-          "command": "privateExtensionManager.installAnotherVersion"
+          "command": "privateExtensionManager.installAnotherVersion",
+          "when": "view == privateExtensions"
         }
       ]
     },
