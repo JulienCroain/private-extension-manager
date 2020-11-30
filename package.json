@@ -4,7 +4,7 @@
   "description": "Install and keep up to date private VS Code extension",
   "publisher": "juliencroain",
   "icon": "media/privateExtensionIcon.png",
-  "version": "1.4.7",
+  "version": "1.4.8",
   "engines": {
     "vscode": "^1.37.0"
   },
