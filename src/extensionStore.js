@@ -79,12 +79,14 @@ class ExtensionStore {
     }
 
     get directories() {
-        let configuration = vscode.workspace.getConfiguration("private-extension-manager")
+        let configuration = vscode.workspace.getConfiguration("private-extension-manager");
+
+        const rootDir = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
         return configuration.directories.map(d => {
             return {
                 name: path.parse(d).name,
-                path: d
+                path: path.resolve(rootDir, d),
             }
         })
     }
