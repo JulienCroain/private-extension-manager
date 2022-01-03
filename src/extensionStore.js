@@ -7,7 +7,7 @@ function getExtensionFromDirectory(direcoryInfo) {
     return new Promise((resolve, reject) => {
         vscode.workspace.fs.readDirectory(vscode.Uri.file(direcoryInfo.path)).then((files) => {
             files = files.filter(file => file[0].toLowerCase().endsWith('.vsix') &&
-                (file[1] == vscode.FileType.File || file[1] == vscode.FileType.SymbolicLink))
+                ((file[1] & vscode.FileType.File) == vscode.FileType.File))
             resolve(files.map(f => f[0]))
         }, (reason) => {
             vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
