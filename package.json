@@ -130,13 +130,13 @@
   "repository": "https://github.com/JulienCroain/private-extension-manager",
   "devDependencies": {
     "@types/mocha": "^2.2.42",
-    "@types/node": "^8.10.51",
-    "eslint": "^6.1.0",
-    "typescript": "^3.5.3",
-    "vscode": "^1.1.36"
+    "@types/node": "^8.10.66",
+    "eslint": "^6.8.0",
+    "typescript": "^3.9.10",
+    "vscode": "^1.1.37"
   },
   "dependencies": {
-    "compare-versions": "^3.5.1",
+    "compare-versions": "^3.6.0",
     "vsix-info": "0.0.3"
   },
   "extensionDependencies": [
