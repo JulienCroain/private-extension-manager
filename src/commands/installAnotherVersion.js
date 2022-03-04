@@ -5,6 +5,8 @@ module.exports = function({context}) {
         return vscode.window.showQuickPick(
             extension.versions.map(version => ({
                 label: version.version,
+                displayName: extension.label,
+                version: version.version,
                 path: version.path
             })), {
                 placeHolder: 'Select Version to Install'

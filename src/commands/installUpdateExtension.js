@@ -8,13 +8,13 @@ function installExtension(extension) {
     )
     .then(() => {
       vscode.window.showInformationMessage(
-        `${extension.label} (${extension.version}) installed.`,
+        `${extension.displayName} (${extension.version}) installed.`,
         'Ok'
       )
       vscode.commands.executeCommand('privateExtensionManager.checkForUpdates')
     }, reason => {
       vscode.window.showErrorMessage(
-        `${extension.label} (${extension.version}) installation failed.${reason}`,
+        `${extension.displayName} (${extension.version}) installation failed.${reason}`,
         'Ok'
       )
     })

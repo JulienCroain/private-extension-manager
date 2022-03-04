@@ -53,6 +53,7 @@ class Extension extends vscode.TreeItem {
 	constructor(extension) {
         super(extension.displayName, vscode.TreeItemCollapsibleState.None)
         this.publisher = extension.publisher
+        this.displayName = extension.displayName
         this.id = extension.path
         this.name = extension.id
         this.path = extension.path
