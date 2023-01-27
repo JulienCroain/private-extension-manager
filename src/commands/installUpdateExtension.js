@@ -9,9 +9,15 @@ function installExtension(extension) {
     .then(() => {
       vscode.window.showInformationMessage(
         `${extension.displayName} (${extension.version}) installed.`,
-        'Ok'
-      )
-      vscode.commands.executeCommand('privateExtensionManager.checkForUpdates')
+        'Ok',
+        'Reload Window'
+      ).then(selection => {
+        if (selection === 'Reload Window') {
+          vscode.commands.executeCommand("workbench.action.reloadWindow")
+        }
+
+        vscode.commands.executeCommand('privateExtensionManager.checkForUpdates')
+      })
     }, reason => {
       vscode.window.showErrorMessage(
         `${extension.displayName} (${extension.version}) installation failed.${reason}`,
