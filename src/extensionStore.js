@@ -10,7 +10,11 @@ function getExtensionFromDirectory(direcoryInfo) {
                 ((file[1] & vscode.FileType.File) == vscode.FileType.File))
             resolve(files.map(f => f[0]))
         }, (reason) => {
-            vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
+            if (/\\\\[a-zA-Z0-9\.\-_]{1,}(\\[a-zA-Z0-9\-_]{1,}){1,}[\$]{0,1}/.test(direcoryInfo.path)) {
+                vscode.window.showWarningMessage('Unable to read directory. Please add the UNC host to the allowed list.')
+            } else {
+                vscode.window.showWarningMessage('Unable to read directory. Please check extension settings.')
+            }
             reject()
         })
     })
@@ -38,7 +42,7 @@ function distinctExtensionsWithAllVersions(extensions) {
     extensions.forEach(extension => {
         if (distinctExtensions[getExtensionIdentifier(extension)])
             return
-        
+
         extension.versions = extensions
             .filter(ex => getExtensionIdentifier(ex) === getExtensionIdentifier(extension))
             .sort((a, b) => compareVersions(a.version, b.version) * -1)
@@ -94,15 +98,15 @@ class ExtensionStore {
 
     extensionInDirectory(directory) {
         return getExtensionFromDirectory(directory)
-        .then(extensionFiles => {
-            return Promise.all(extensionFiles.map(file => {
-                return loadExtensionFile(path.join(directory.path, file))
-            }))
-        })
-        .then(filterAndFormatExtensionInfos)
-        .catch(err => {
-            console.log(err)
-        })
+            .then(extensionFiles => {
+                return Promise.all(extensionFiles.map(file => {
+                    return loadExtensionFile(path.join(directory.path, file))
+                }))
+            })
+            .then(filterAndFormatExtensionInfos)
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     refresh() {
