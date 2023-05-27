@@ -23,34 +23,38 @@ class ExtensionProvider {
     getChildren(element) {
         if (element) {
             return extensionStore.extensionInDirectory(element).then(extensions => {
-                return extensions.map(extension => new Extension(extension))
+                try {
+                    return extensions.map(extension => new Extension(extension))
+                } catch (ex) {
+                    return undefined;
+                }
             })
         }
-        
+
         return extensionStore.directories.map(directory => new DirectoryExtension(directory))
     }
 }
 
 class DirectoryExtension extends vscode.TreeItem {
 
-	constructor(directory) {
+    constructor(directory) {
         super(directory.name, vscode.TreeItemCollapsibleState.Collapsed)
         this.path = directory.path
         this.collapsibleState = vscode.TreeItemCollapsibleState.Expanded
-	}
+    }
 
-	get tooltip() {
-		return this.path
-	}
+    get tooltip() {
+        return this.path
+    }
 
-	get description() {
-		return this.path
-	}
+    get description() {
+        return this.path
+    }
 }
 
 class Extension extends vscode.TreeItem {
 
-	constructor(extension) {
+    constructor(extension) {
         super(extension.displayName, vscode.TreeItemCollapsibleState.None)
         this.publisher = extension.publisher
         this.displayName = extension.displayName
@@ -70,22 +74,22 @@ class Extension extends vscode.TreeItem {
             const image = extension.contextValue === 'extension-not-installed' ? 'install.svg' : 'update.svg'
 
             this.iconPath = {
-                light: path.join(__dirname, '..','..', 'media', 'light', image),
-                dark: path.join(__dirname, '..','..', 'media', 'dark', image)
+                light: path.join(__dirname, '..', '..', 'media', 'light', image),
+                dark: path.join(__dirname, '..', '..', 'media', 'dark', image)
             }
         }
-	}
+    }
 
-	get tooltip() {
-		return `${this.publisher}.${this.name}-${this.version}`
-	}
+    get tooltip() {
+        return `${this.publisher}.${this.name}-${this.version}`
+    }
 
-	get description() {
-		return `${this.publisher} (${this.version})`
-	}
+    get description() {
+        return `${this.publisher} (${this.version})`
+    }
 }
 
-module.exports = function() {
+module.exports = function () {
     const extensionProvider = new ExtensionProvider()
     vscode.window.registerTreeDataProvider('privateExtensions', extensionProvider)
     return extensionProvider
